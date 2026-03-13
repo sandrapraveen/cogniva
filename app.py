@@ -268,22 +268,16 @@ def _handle_question(question: str, mode: str) -> None:
                 sources = format_sources(retrieved_chunks)
 
             # ── Step 3: Generate answer ────────────────
-            if not context:
-                answer = (
-                    "⚠️ I could not find any relevant information in your knowledge base "
-                    "or via web search. Please try rephrasing your question or uploading "
-                    "more relevant documents."
+            try:
+                # If context is empty, the LLM will behave like a normal chatbot
+                answer = generate_answer(
+                    question=question,
+                    context=context or "",
+                    mode=mode,
                 )
-            else:
-                try:
-                    answer = generate_answer(
-                        question=question,
-                        context=context,
-                        mode=mode,
-                    )
-                except Exception as e:
-                    answer = f"❌ LLM error: {e}"
-                    logger.error("LLM generation error: %s", e)
+            except Exception as e:
+                answer = f"❌ LLM error: {e}"
+                logger.error("LLM generation error: %s", e)
 
         # ── Display ────────────────────────────────
         answer_placeholder.markdown(answer)
