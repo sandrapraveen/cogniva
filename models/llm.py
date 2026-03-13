@@ -34,18 +34,20 @@ def get_client() -> Groq:
 # ── Prompt templates ──────────────────────────────────────────────────────────
 
 _CONCISE_SYSTEM = (
-    "You are a precise knowledge assistant. "
-    "Answer questions using ONLY the provided context. "
+    "You are a helpful AI assistant. "
+    "If context is provided, answer using the context. "
+    "If no context is provided, answer normally in a conversational way. "
     "Keep answers short and direct (2–4 sentences). "
-    "Do not hallucinate. If the context does not contain the answer, say so. "
+    "Do not hallucinate document sources. "
     "Do NOT include source references in the answer."
 )
 
 _DETAILED_SYSTEM = (
-    "You are a thorough knowledge assistant. "
-    "Answer questions using ONLY the provided context. "
-    "Provide a comprehensive, well-structured answer with explanations and examples where relevant. "
-    "Do not hallucinate. If the context does not fully cover the question, acknowledge the gap. "
+    "You are a helpful AI assistant. "
+    "If context is provided, answer using the context. "
+    "If no context is provided, answer normally in a conversational way. "
+    "Provide a clear and well-structured explanation. "
+    "Do not hallucinate document sources. "
     "Do NOT include source references in the answer."
 )
 
