@@ -55,7 +55,8 @@ def _make_rag_tool(rag_pipeline):
     Returns:
         A LangChain Tool (StructuredTool or Tool).
     """
-    from langchain_core.tools import Tool
+    from langchain_core.tools import StructuredTool
+    #from langchain_core.tools import Tool
     from utils.rag_pipeline import format_sources
 
     def _retrieve(query: str) -> str:
@@ -72,15 +73,13 @@ def _make_rag_tool(rag_pipeline):
         sources = format_sources(chunks)
         sources_str = "\n".join(f"- {s}" for s in sources)
         return f"[Sources]\n{sources_str}\n\n[Content]\n{context}"
-
-    return Tool(
-        name="rag_retrieve",
+    
+    return StructuredTool.from_function(
         func=_retrieve,
+        name="rag_retrieve",
         description=(
             "Search the user's uploaded documents (PDFs, Word files, CSVs, "
-            "YouTube transcripts, etc.) for information relevant to the question. "
-            "Use this tool FIRST whenever the question might be answered by uploaded content. "
-            "Input: the user's question or a focused search query."
+            "YouTube transcripts, etc.) for information relevant to the question."
         ),
     )
 
