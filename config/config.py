@@ -35,6 +35,6 @@ MAX_SEARCH_RESULTS: int = int(os.getenv("MAX_SEARCH_RESULTS", "4"))
 TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
 
 # ── App ───────────────────────────────────────────────────────────────────────
-APP_TITLE: str = "Universal Knowledge Assistant"
-APP_ICON: str = "🧠"
+APP_TITLE = "Cogniva"
+APP_ICON = "🧠"
 MAX_HISTORY: int = 20
